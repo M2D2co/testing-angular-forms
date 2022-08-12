@@ -21,6 +21,12 @@ $accent: #80deea;
   padding: 1rem;
 }
 
+div:has(input) {
+  label:after {
+    content: '*';
+    color: $warn;
+  }
+}
 span.required { color: $warn; }
 span.optional, .counter {
   color: rgb(0 0 0 / 66%);
@@ -32,10 +38,7 @@ span.optional, .counter {
 .counter.warn { color: rgb(209, 111, 26); }
 .counter.danger { color: $warn; }
 
-label {
-  display: block;
-  margin-bottom: 1rem;
-}
+label { display: block }
   
 input, textarea {
   display: block;
