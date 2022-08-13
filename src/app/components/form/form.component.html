@@ -4,26 +4,28 @@
       <h1>Contact Us</h1>
 
       <div>
-        <label>Name</label>
-        <input type="text" formControlName="name" required>
+        <label for="name">Name</label>
+        <input id="name" type="text" formControlName="name" required>
         <div class="errors" role="alert" *ngFor="let error of showErrors('name')">{{ error }}</div>
       </div>
 
       <div>
-        <label>Email</label>
-        <input type="email" formControlName="email" required>
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" required>
         <div class="errors" role="alert" *ngFor="let error of showErrors('email')">{{ error }}</div>
       </div>
 
       <div>
-        <label>Phone <span class="optional">(Optional)</span></label>
-        <input type="tel" formControlName="phone">
-        <div class="errors" role="alert" *ngFor="let error of showErrors('phone')">{{ error }}</div>
+        <label>
+          Phone <span class="optional">(Optional)</span>
+          <input type="tel" formControlName="phone">
+          <div class="errors" role="alert" *ngFor="let error of showErrors('phone')">{{ error }}</div>
+        </label>
       </div>
 
       <div>
-        <label>Message</label>
-        <textarea #message rows="5" formControlName="message" required></textarea>
+        <label for="message">Message</label>
+        <textarea id="message" #message rows="5" formControlName="message" required></textarea>
         <div class="hint-error">
           <div class="errors" role="alert" *ngFor="let error of showErrors('message')">{{ error }}</div>
           <div class="counter" [ngClass]="{
