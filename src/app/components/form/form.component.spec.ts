@@ -37,61 +37,60 @@ describe('FormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it(`should require an the email address 1`, () => {
-    const emailControl = component.form.get('email');
-    emailControl?.patchValue(null);
-    fixture.detectChanges();
-    expect(emailControl?.valid).toBeFalse();
-  });
+  // it(`should require an email address`, () => {
+  //   TODO
+  //   expect(emailControl?.valid).toBeFalse();
+  // });
 
-  it(`should require an email address 2`, () => {
-    const emailControl
-      = component.form.get('email');
-    emailControl?.patchValue('user');
-    fixture.detectChanges();
-    expect(emailControl?.valid).toBeFalse();
-    emailControl?.patchValue('user@email.com');
-    fixture.detectChanges();
-    expect(emailControl?.valid).toBeTrue();
-  });
+  
+  // it(`email address should be valid`, () => {
+  //   TODO
+  //   expect(emailControl?.valid).toBeFalse();
+  // });
 
 
-  const emailValidationTests = [
-    { value: null, valid: false },
-    { value: undefined, valid: false },
-    { value: 'user@email.com', valid: true },
-    { value: 'user@email', valid: false },
+  // const emailValidationTests = [
+  //   { value: null, valid: false },
+  //   { value: 'user', valid: false },
+  //   { value: 'user@email.com', valid: true },
+  //   // TODO more use cases
+  // ];
+  // emailValidationTests.forEach(test => {
+  //   // TODO
+  // });
+
+
+
+  // TODO refactor to check for the other types of error (length and required)
+  const emailErrors = [
+    { value: null, errors: 'required' },
+    { value: undefined, errors: 'required' },
+    { value: 0, errors: 'pattern' },
+    { value: true, errors: 'pattern' },
+    { value: "", errors: 'required' },
+    { value: "not a valid email", errors: 'pattern' },
+    { value: 'very-long-but-structurally-valid@email.com', errors: 'maxlength'},
+    // { value: 'My very long diatribe about why I am not providing a valid email address', errors: ['pattern', 'maxlength']}
   ];
+  emailErrors.forEach(test => {
+    fit('should display error messages', () => {
+      const emailInput = fixture.debugElement.nativeElement
+          .querySelector('input[formControlName="email"]')
+      expect(emailInput).toBeTruthy();
 
-  emailValidationTests.forEach(test => {
-    it(`should validate the email address: "${test.value}"`,
-      () => {
-        const emailControl = component.form.get('email');
-        emailControl?.patchValue(test.value);
-        fixture.detectChanges();
-        expect(emailControl?.valid).toBe(test.valid);
-      });
-  });
+      const control = component.form.get('email');
+      control?.patchValue("not a valid email");
+      control?.markAllAsTouched();
+      fixture.detectChanges();
 
-  it(`should display email field`, () => {
-    const emailInput = fixture.debugElement.nativeElement
-      .querySelector('input[formControlName="email"]')
-    expect(emailInput).toBeTruthy();
-  });
+      const div = <HTMLLabelElement>emailInput.parentNode;
+      const errors: NodeListOf<HTMLLabelElement> = 
+      div.querySelectorAll('.errors');
 
-  it(`should display email field`, () => {
-    const emailInput = fixture.debugElement.nativeElement.querySelector('input[formControlName="email"]')
-    expect(emailInput).toBeTruthy();
 
-    const control = component.form.get('email');
-    control?.patchValue("not a valid email");
-    control?.markAllAsTouched();
-    fixture.detectChanges();
-
-    const div = <HTMLLabelElement>emailInput.parentNode;
-    const errors: NodeListOf<HTMLLabelElement> = div.querySelectorAll('.errors');
-    expect(errors.length).toEqual(1);
-    expect(errors[0].innerText).toEqual(component.errors['pattern']);
-  });
+      expect(errors.length).toEqual(1);
+      expect(errors[0].innerText).toEqual(component.errors['pattern']);
+    })
+  })
 
 });
