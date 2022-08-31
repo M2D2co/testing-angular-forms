@@ -62,35 +62,35 @@ describe('FormComponent', () => {
 
 
   // TODO refactor to check for the other types of error (length and required)
-  const emailErrors = [
-    { value: null, errors: 'required' },
-    { value: undefined, errors: 'required' },
-    { value: 0, errors: 'pattern' },
-    { value: true, errors: 'pattern' },
-    { value: "", errors: 'required' },
-    { value: "not a valid email", errors: 'pattern' },
-    { value: 'very-long-but-structurally-valid@email.com', errors: 'maxlength'},
-    // { value: 'My very long diatribe about why I am not providing a valid email address', errors: ['pattern', 'maxlength']}
-  ];
-  emailErrors.forEach(test => {
-    fit('should display error messages', () => {
-      const emailInput = fixture.debugElement.nativeElement
-          .querySelector('input[formControlName="email"]')
-      expect(emailInput).toBeTruthy();
+  // const emailErrors = [
+  //   { value: null, errors: 'required' },
+  //   { value: undefined, errors: 'required' },
+  //   { value: 0, errors: 'pattern' },
+  //   { value: true, errors: 'pattern' },
+  //   { value: "", errors: 'required' },
+  //   { value: "not a valid email", errors: 'pattern' },
+  //   { value: 'very-long-but-structurally-valid@email.com', errors: 'maxlength'},
+  //   // { value: 'My very long diatribe about why I am not providing a valid email address', errors: ['pattern', 'maxlength']}
+  // ];
+  // emailErrors.forEach(test => {
+  //   fit('should display error messages', () => {
+  //     const emailInput = fixture.debugElement.nativeElement
+  //         .querySelector('input[formControlName="email"]')
+  //     expect(emailInput).toBeTruthy();
 
-      const control = component.form.get('email');
-      control?.patchValue("not a valid email");
-      control?.markAllAsTouched();
-      fixture.detectChanges();
+  //     const control = component.form.get('email');
+  //     control?.patchValue("not a valid email");
+  //     control?.markAllAsTouched();
+  //     fixture.detectChanges();
 
-      const div = <HTMLLabelElement>emailInput.parentNode;
-      const errors: NodeListOf<HTMLLabelElement> = 
-      div.querySelectorAll('.errors');
+  //     const div = <HTMLLabelElement>emailInput.parentNode;
+  //     const errors: NodeListOf<HTMLLabelElement> = 
+  //     div.querySelectorAll('.errors');
 
 
-      expect(errors.length).toEqual(1);
-      expect(errors[0].innerText).toEqual(component.errors['pattern']);
-    })
-  })
+  //     expect(errors.length).toEqual(1);
+  //     expect(errors[0].innerText).toEqual(component.errors['pattern']);
+  //   })
+  // })
 
 });
